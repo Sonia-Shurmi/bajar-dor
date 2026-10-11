@@ -10,16 +10,23 @@ if (!mongoUri) {
 }
 
 const client = new MongoClient(mongoUri);
+
 const db = client.db(process.env.MONGODB_DB_NAME || "bazardor");
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db, {
-    client,
-  }),
+  database: mongodbAdapter(db, { client }),
 
   emailAndPassword: {
     enabled: true,
   },
+
+account: {
+  accountLinking: {
+    enabled: true,
+    trustedProviders: ["google", "github"],
+    requireLocalEmailVerified: false,
+  },
+},
 
   socialProviders: {
     google: {
