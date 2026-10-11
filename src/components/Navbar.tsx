@@ -1,9 +1,9 @@
-
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
 import AuthButtons from "@/components/AuthButtons";
+import MobileNavMenu from "@/components/MobileNavMenu";
 
 const API_URL = "https://openapi.programming-hero.com/api/bazardor";
 
@@ -44,8 +44,16 @@ export default async function Navbar() {
       throw new Error("Failed to fetch market data");
     }
 
-    categories = await categoryRes.json();
-    products = await productRes.json();
+    const categoryData = await categoryRes.json();
+    const productData = await productRes.json();
+
+    categories = Array.isArray(categoryData)
+      ? categoryData
+      : categoryData.data ?? categoryData.categories ?? [];
+
+    products = Array.isArray(productData)
+      ? productData
+      : productData.data ?? productData.products ?? [];
   } catch (error) {
     console.error("Navbar fetch error:", error);
   }
@@ -60,30 +68,44 @@ export default async function Navbar() {
 
   return (
     <header className="border-b border-base-300 bg-base-100 shadow-sm">
-      {/* Brand and authentication */}
+      {/* Brand and desktop authentication */}
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-        <Link href="/" className="flex shrink-0 items-center gap-2">
-          <ShoppingCart size={34} className="text-primary" />
+        <Link
+          href="/"
+          className="flex min-w-0 shrink items-center gap-2"
+        >
+          <ShoppingCart
+            size={30}
+            className="shrink-0 text-primary sm:h-[34px] sm:w-[34px]"
+          />
 
-          <div>
-            <h1 className="text-xl font-bold text-primary sm:text-2xl">
+          <div className="min-w-0">
+            <h1 className="text-lg font-bold text-primary sm:text-2xl">
               বাজার দর
             </h1>
-            <p className="text-xs text-base-content/65">{today}</p>
+            <p className="text-xs text-base-content/65">
+              {today}
+            </p>
           </div>
         </Link>
 
-        <div className="hidden items-center gap-2 sm:flex">
+        {/* Desktop authentication */}
+        <div className="hidden shrink-0 items-center gap-2 sm:flex">
           <AuthButtons />
+        </div>
+
+        {/* Mobile menu */}
+        <div className="shrink-0 sm:hidden">
+          <MobileNavMenu categories={categories} />
         </div>
       </div>
 
-      {/* Category menu from Categories API */}
-      <nav className="border-t border-base-200">
-        <div className="mx-auto flex max-w-6xl items-center justify-center gap-1 overflow-x-auto px-4">
+      {/* Desktop category navigation */}
+      <nav className="hidden border-t border-base-200 sm:block">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-1 px-4">
           <Link
             href="/"
-            className="shrink-0 whitespace-nowrap px-4 py-3 text-sm font-semibold text-primary"
+            className="whitespace-nowrap px-3 py-3 text-sm font-semibold text-primary"
           >
             সব পণ্য
           </Link>
@@ -92,7 +114,7 @@ export default async function Navbar() {
             <Link
               key={category.id}
               href={`/category/${category.slug}`}
-              className="flex shrink-0 items-center gap-1 whitespace-nowrap px-3 py-3 text-sm font-semibold text-base-content/70 transition hover:text-primary"
+              className="flex items-center gap-1 whitespace-nowrap px-3 py-3 text-sm font-semibold text-base-content/70 transition hover:text-primary"
             >
               <span>{category.icon}</span>
               <span>{category.nameBn}</span>
@@ -101,13 +123,13 @@ export default async function Navbar() {
         </div>
       </nav>
 
-      {/* Market price marquee */}
-      <div className="bg-primary py-2 text-primary-content">
+      {/* Market price ticker */}
+      <div className="overflow-hidden bg-primary py-2 text-primary-content">
         <MarqueeText direction="left" duration={40} pauseOnHover={true}>
           {products.map((product) => (
             <span
               key={product.id}
-              className="inline-flex items-center gap-2 whitespace-nowrap px-6"
+              className="inline-flex items-center gap-2 whitespace-nowrap px-4 sm:px-6"
             >
               <span>{product.image}</span>
               <span>{product.nameBn}</span>

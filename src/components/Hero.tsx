@@ -35,7 +35,7 @@ const Hero = () => {
 
           <div className="mt-4">
             <Link
-              href="/"
+              href="#সব-পণ্য"
               className="inline-flex items-center gap-2 rounded-xl bg-[#05893E] px-6 py-3.5 font-semibold text-white shadow-md transition hover:bg-[#046F32]"
             >
               সব পণ্য দেখুন
