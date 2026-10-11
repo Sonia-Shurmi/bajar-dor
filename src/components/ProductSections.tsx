@@ -131,7 +131,7 @@ const ProductSections = async () => {
         </div>
 
         {risingProducts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             {risingProducts.map((product) => (
               <ProductCard
                 key={product.id}
@@ -160,7 +160,7 @@ const ProductSections = async () => {
         </div>
 
         {fallingProducts.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             {fallingProducts.map((product) => (
               <ProductCard
                 key={product.id}
@@ -191,7 +191,7 @@ const ProductSections = async () => {
         </div>
 
         {products.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             {products.map((product) => (
               <ProductCard
                 key={product.id}

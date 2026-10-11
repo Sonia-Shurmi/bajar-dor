@@ -1,14 +1,9 @@
+import TodayDate from "@/components/TodayDate";
 import Image from "next/image";
 import Link from "next/link";
 
-const Hero = () => {
-  const today = new Intl.DateTimeFormat("bn-BD", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "Asia/Dhaka",
-  }).format(new Date());
+const Hero = async () => {
+  
 
   return (
     <section className="overflow-hidden bg-[#F3FBF4] py-12">
@@ -17,7 +12,7 @@ const Hero = () => {
         <div>
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#05893E]/20 bg-white px-4 py-2 text-sm font-medium text-[#05893E]">
             <span className="w-2 rounded-full bg-[#05893E]" />
-            {today}
+            <TodayDate />
           </p>
 
           <h1 className="text-2xl leading-tight font-bold tracking-tight text-[#1D271F] sm:text-5xl lg:text-6xl">

@@ -1,9 +1,11 @@
+import { connection } from "next/server";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
 import AuthButtons from "@/components/AuthButtons";
 import MobileNavMenu from "@/components/MobileNavMenu";
+import TodayDate from "./TodayDate";
 
 const API_URL = "https://openapi.programming-hero.com/api/bazardor";
 
@@ -58,6 +60,8 @@ export default async function Navbar() {
     console.error("Navbar fetch error:", error);
   }
 
+  await connection();
+
   const today = new Intl.DateTimeFormat("bn-BD", {
     weekday: "long",
     day: "numeric",
@@ -84,7 +88,7 @@ export default async function Navbar() {
               বাজার দর
             </h1>
             <p className="text-xs text-base-content/65">
-              {today}
+              <TodayDate />
             </p>
           </div>
         </Link>
@@ -103,13 +107,6 @@ export default async function Navbar() {
       {/* Desktop category navigation */}
       <nav className="hidden border-t border-base-200 sm:block">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-1 px-4">
-          <Link
-            href="/"
-            className="whitespace-nowrap px-3 py-3 text-sm font-semibold text-primary"
-          >
-            সব পণ্য
-          </Link>
-
           {categories.map((category) => (
             <Link
               key={category.id}
