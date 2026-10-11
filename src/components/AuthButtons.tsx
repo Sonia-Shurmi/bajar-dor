@@ -80,18 +80,29 @@ export default function AuthButtons() {
     );
   }
 
-  return (
-    <>
-      <Link
-        href="/signin"
-        className="btn btn-sm btn-outline rounded-full"
-      >
-        সাইন ইন
-      </Link>
+return (
+  <>
+    <Link
+      href="/signin"
+      className="inline-flex h-9 items-center justify-center rounded-full
+        border border-primary px-4 text-sm font-semibold text-primary
+        transition-colors hover:bg-primary/10
+        focus-visible:outline-2 focus-visible:outline-offset-2
+        focus-visible:outline-primary"
+    >
+      সাইন ইন
+    </Link>
 
-      <Link href="/signup" className="btn rounded-full">
-        সাইন আপ
-      </Link>
-    </>
-  );
+    <Link
+      href="/signup"
+      className="inline-flex h-9 items-center justify-center rounded-full
+        bg-primary px-4 text-sm font-semibold text-primary-content
+        shadow-sm transition-colors hover:bg-primary/90
+        focus-visible:outline-2 focus-visible:outline-offset-2
+        focus-visible:outline-primary"
+    >
+      সাইন আপ
+    </Link>
+  </>
+);
 }
